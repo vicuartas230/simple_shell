@@ -39,18 +39,23 @@ char **str_array(char *line, int words, char *delim)
 	if (tok == NULL)
 		return (NULL);
 	while (i < words)
-    {
-        tok[i] = strtok(line, delim);
+	{
+		if (!i)
+			tok[i] = strtok(line, delim);
+		else
+			tok[i] = strtok(0, delim);
 		i++;
-    }
+	}
+	tok[i] = NULL;
     return (tok);
 }
 /**
  * _strlen - Function that returns the length of a string
  * @s: string of characters
  * Return: number of characters
+ */
 
-int _strlen(char *s)
+int _strlen(const char *s)
 {
 	int i = 0;
 
@@ -58,4 +63,51 @@ int _strlen(char *s)
 		;
 	return (i + 1);
 }
-*/
+
+/**
+ * _strcat - This function concatenates two strings
+ * @dest: The string to print
+ * @src: The original string
+ * Return: 0 (Success)
+ */
+
+char *_strcat(char *dest, char *src)
+{
+	int a, b;
+
+	for (b = 0; dest[b] != '\0'; ++b)
+	{
+	}
+	for (a = 0; a <= b && src[a] != '\0'; ++a)
+	{
+		*(dest + (a + b)) = src[a];
+	}
+	dest[b + a] = '\0';
+	return (dest);
+}
+
+/**
+ * _strcmp - This function compares two strings
+ * @s1: Character 1 to compare
+ * @s2: Character 2 to compare
+ * Return: 0 (Success)
+ */
+
+int _strcmp(char *s1, char *s2)
+{
+	int a, e;
+
+	for (a = 0; s1[a] && s2[a] != '\0'; a++)
+	{
+		if (s1[a] != s2[a])
+		{
+			e = (s1[a] - s2[a]);
+			break;
+		}
+		else
+		{
+			e = (0);
+		}
+	}
+	return (e);
+}

@@ -7,21 +7,21 @@
  */
 int count_w(char *buff, char *delim)
 {
-    int step = 0;
-	unsigned words = 0;
+	int step = 0;
+	unsigned int words = 0;
 
 	while (*buff)
 	{
-	    if (*buff == delim[0] || *buff == '\n')
+		if (*buff == delim[0] || *buff == '\n')
 			step = 0;
-	    else if (step == 0)
+		else if (step == 0)
 		{
 			step = 1;
 			++words;
 		}
-	    ++buff;
+		++buff;
 	}
-	return words;
+	return (words);
 }
 /**
  * str_array - Function that converts a string to a pointers array
@@ -32,7 +32,7 @@ int count_w(char *buff, char *delim)
  */
 char **str_array(char *line, int words, char *delim)
 {
-    char **tok = NULL;
+	char **tok = NULL;
 	int i = 0;
 
 	tok = malloc(words * sizeof(char *));
@@ -47,7 +47,7 @@ char **str_array(char *line, int words, char *delim)
 		i++;
 	}
 	tok[i] = NULL;
-    return (tok);
+	return (tok);
 }
 /**
  * _strlen - Function that returns the length of a string
@@ -76,8 +76,7 @@ char *_strcat(char *dest, char *src)
 	int a, b;
 
 	for (b = 0; dest[b] != '\0'; ++b)
-	{
-	}
+		;
 	for (a = 0; a <= b && src[a] != '\0'; ++a)
 	{
 		*(dest + (a + b)) = src[a];

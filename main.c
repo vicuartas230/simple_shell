@@ -7,6 +7,6 @@
 
 int main(void)
 {
-    call_shell();
-    return (0);
+	call_shell();
+	return (0);
 }

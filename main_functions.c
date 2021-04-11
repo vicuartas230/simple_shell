@@ -7,22 +7,22 @@
 
 void call_shell(void)
 {
-    int line = 0, line_cont = 0, words = 0;
-    size_t chars = 0;
-    char *buff = NULL;
-    char **command = NULL;
+	int line = 0, line_cont = 0, words = 0;
+	size_t chars = 0;
+	char *buff = NULL, **command = NULL;
 
-    while (line != EOF)
-    {
-        line_cont++;
-	write(STDOUT_FILENO, "$ ", 2);
-        line = getline(&buff, &chars, stdin);
-	buff[line - 1] = 0;
-        words = count_w(buff, " ");
-        command = str_array(buff, words, " ");
-	check_command(command, line_cont);
-    }
-    free(buff);
+	while (line != EOF)
+	{
+		line_cont++;
+		write(STDOUT_FILENO, "$ ", 2);
+		line = getline(&buff, &chars, stdin);
+		buff[line - 1] = 0;
+		words = count_w(buff, " ");
+		command = str_array(buff, words, " ");
+		if (builtin_sel(command) == -1)
+			check_command(command, line_cont);
+	}
+	free(buff);
 }
 
 /**
@@ -32,27 +32,26 @@ void call_shell(void)
  * Return: The process ID of the child.
  */
 
-int under_process(char **command)
+void under_process(char **command)
 {
-    int child = 0;
+	int child = 0;
 
-    child = fork();
-    if (child == 0)
-    {
-        if (execve(command[0], command, environ) == -1)
-        {
-            perror("Error");
-            exit(EXIT_FAILURE);
-        }
-    }
-    else if (child == -1)
-    {
-        perror("Error");
-        exit(EXIT_FAILURE);
-    }
-    else
-	    wait(NULL);
-    return (child);
+	child = fork();
+	wait(NULL);
+	if (child == 0)
+	{
+		if (execve(command[0], command, environ) == -1)
+		{
+			perror("Error");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else if (child == -1)
+	{
+		perror("Error");
+		exit(EXIT_FAILURE);
+	}
+	/*return (child);*/
 }
 
 /**
@@ -84,7 +83,6 @@ void check_command(char **command, int line_cont)
 	else
 	{
 		handler_dir(command);
-		free(command);
 	}
 }
 
@@ -98,21 +96,22 @@ void check_command(char **command, int line_cont)
 void handler_dir(char **command)
 {
 	int i = 0, words = 0, j = 0, k = 0;
-	char **path = NULL, **dest = NULL, *paths = NULL, *tmp = NULL;
+	char **paths = NULL, *tmp = NULL, *path = NULL;
 	struct stat st;
 
-	paths = _getenv("PATH");
-	words = count_w(paths, ":");
-	path = str_array(paths, words, ":");
-	while (path[i])
+	path = _getenv("PATH");
+	printf("%s\n", path);
+	words = count_w(path, ":");
+	paths = str_array(path, words, ":");
+	while (paths[i])
 	{
 		tmp = malloc(sizeof(char) * 20);
 		if (tmp == NULL)
 			return;
 		j = 0;
-		while (path[i][j])
+		while (paths[i][j])
 		{
-			tmp[j] = path[i][j];
+			tmp[j] = paths[i][j];
 			j++;
 		}
 		tmp[j] = '/';
@@ -127,11 +126,13 @@ void handler_dir(char **command)
 		tmp[j] = 0;
 		if (!(stat(tmp, &st)))
 		{
-			_strcpy(command[0], tmp);
+			command[0] = strdup(tmp);
 			free(tmp);
 			under_process(command);
 			break;
 		}
 		i++;
 	}
+	free(paths);
+/*	free(command);*/
 }

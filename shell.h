@@ -13,11 +13,17 @@
 
 extern char **environ;
 
+typedef struct built
+{
+	char *str_bltn;
+	void (*fun_p)();
+} builtin;
+
 int count_w(char *buff, char *delim);
 void call_shell(void);
 char **str_array(char *line, int words, char *delim);
 int _strlen(const char *s);
-int under_process(char **command);
+void under_process(char **command);
 void check_command(char **command, int line_cont);
 void  handler_dir(char **command);
 char *_strstr(char *haystack, char *needle);
@@ -27,5 +33,8 @@ int _strcmp(char *s1, char *s2);
 char *_strchr(char *s, char c);
 char *_strcpy(char *dest, char *src);
 char *_getenv(const char *name);
+int builtin_sel(char **command);
+void f_exit(void);
+void env(void);
 
 #endif

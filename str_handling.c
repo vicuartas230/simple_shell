@@ -38,6 +38,12 @@ char **str_array(char *line, int words, char *delim)
 	tok = malloc(words * sizeof(char *));
 	if (tok == NULL)
 		return (NULL);
+	/* while (i < words)
+	{
+		tok[i] = NULL;
+		i++;
+	}
+	i = 0; */
 	while (i < words)
 	{
 		if (!i)
@@ -94,19 +100,23 @@ char *_strcat(char *dest, char *src)
 
 int _strcmp(char *s1, char *s2)
 {
-	int a, e;
+	int a = 0, e = 0;
 
-	for (a = 0; s1[a] && s2[a] != '\0'; a++)
+	if (_strlen(s1) == _strlen(s2))
 	{
-		if (s1[a] != s2[a])
+		for (a = 0; s1[a] && s2[a] != '\0'; a++)
 		{
-			e = (s1[a] - s2[a]);
-			break;
+			if (s1[a] != s2[a])
+			{
+				e = (s1[a] - s2[a]);
+				break;
+			}
+			else
+			{
+				e = 0;
+			}
 		}
-		else
-		{
-			e = (0);
-		}
+		return (e);
 	}
-	return (e);
+	return (_strlen(s1) - _strlen(s2));
 }

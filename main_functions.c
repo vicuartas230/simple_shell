@@ -26,35 +26,6 @@ void call_shell(void)
 }
 
 /**
- * under_process - This function creates a child process and
- * executes a command if it is valid.
- * @command: The command to execute.
- * Return: The process ID of the child.
- */
-
-void under_process(char **command)
-{
-	int child = 0;
-
-	child = fork();
-	wait(NULL);
-	if (child == 0)
-	{
-		if (execve(command[0], command, environ) == -1)
-		{
-			perror("Error");
-			exit(EXIT_FAILURE);
-		}
-	}
-	else if (child == -1)
-	{
-		perror("Error");
-		exit(EXIT_FAILURE);
-	}
-	/*return (child);*/
-}
-
-/**
  * check_command - This function checks if command exists.
  * @command: The command to check.
  * @line_cont: The number of commands executed and not executed.
@@ -87,6 +58,35 @@ void check_command(char **command, int line_cont)
 }
 
 /**
+ * under_process - This function creates a child process and
+ * executes a command if it is valid.
+ * @command: The command to execute.
+ * Return: The process ID of the child.
+ */
+
+void under_process(char **command)
+{
+	int child = 0;
+
+	child = fork();
+	wait(NULL);
+	if (child == 0)
+	{
+		if (execve(command[0], command, environ) == -1)
+		{
+			perror("Error");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else if (child == -1)
+	{
+		perror("Error");
+		exit(EXIT_FAILURE);
+	}
+	/*return (child);*/
+}
+
+/**
  * handler_dir - This function open a dir and compares its content.
  * @command: The command to compare.
  * @line_cont: The number of commands executed and not executed.
@@ -95,43 +95,29 @@ void check_command(char **command, int line_cont)
 
 void handler_dir(char **command)
 {
-	int i = 0, words = 0, j = 0, k = 0;
-	char **paths = NULL, *tmp = NULL, *path = NULL;
-	struct stat st;
+	int i = 0, words = 0;
+	char **paths = NULL, *path = NULL, *dest;
+	DIR *dir;
+	struct dirent *direntp;
 
 	path = _getenv("PATH");
 	words = count_w(path, ":");
 	paths = str_array(path, words, ":");
 	while (paths[i])
 	{
-		tmp = malloc(sizeof(char) * 20);
-		if (tmp == NULL)
-			return;
-		j = 0;
-		while (paths[i][j])
+		dir = opendir(paths[i]);
+		while((direntp = readdir(dir)) != NULL)
 		{
-			tmp[j] = paths[i][j];
-			j++;
-		}
-		tmp[j] = '/';
-		j++;
-		k = 0;
-		while (command[0][k])
-		{
-			tmp[j] = command[0][k];
-			k++;
-			j++;
-		}
-		tmp[j] = '\0';
-		if (!(stat(tmp, &st)))
-		{
-			command[0] = strdup(tmp);
-			free(tmp);
-			under_process(command);
-			break;
+			if (_strcmp(direntp->d_name, command[0]) == 0)
+			{
+				_strcat(paths[i], "/");
+				dest = _strcat(paths[i], command[0]);
+				command[0] = dest;
+				under_process(command);
+				break;
 			}
+		}
+		closedir(dir);
 		i++;
 	}
-	free(paths);
-/*	free(command);*/
 }

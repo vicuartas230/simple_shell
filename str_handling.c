@@ -34,22 +34,28 @@ char **str_array(char *line, int words, char *delim)
 {
 	char **tok = NULL;
 	int i = 0;
+	char *aux = NULL;
 
-	tok = malloc(words * sizeof(char *));
+	tok = malloc((words + 1) * sizeof(char *));
 	if (tok == NULL)
 		return (NULL);
-	/* while (i < words)
-	{
-		tok[i] = NULL;
-		i++;
-	}
-	i = 0; */
 	while (i < words)
 	{
 		if (!i)
-			tok[i] = strtok(line, delim);
+			aux = strtok(line, delim);
 		else
-			tok[i] = strtok(0, delim);
+			aux = strtok(NULL, delim);
+		tok[i] = malloc(_strlen(aux) * sizeof(char));
+		if (tok[i] == NULL)
+		{
+			while (i >= 0)
+			{
+				free(tok[i]);
+				i--;
+			}
+			free(tok);
+		}
+		_strcpy(tok[i], aux); 
 		i++;
 	}
 	tok[i] = NULL;
@@ -79,16 +85,28 @@ int _strlen(const char *s)
 
 char *_strcat(char *dest, char *src)
 {
-	int a, b;
+    int a = 0, b = 0;
+    char *cat = NULL;
 
-	for (b = 0; dest[b] != '\0'; ++b)
-		;
-	for (a = 0; a <= b && src[a] != '\0'; ++a)
-	{
-		*(dest + (a + b)) = src[a];
-	}
-	dest[b + a] = '\0';
-	return (dest);
+	if (dest == NULL && src == NULL)
+		return (NULL);
+    cat = malloc((_strlen(src) - 2) + _strlen(dest) * sizeof(char));
+	if(cat == NULL)
+		return (NULL);
+    for (a = 0; dest[a] != '\0'; ++a)
+    {
+        *(cat + a) = dest[a];
+    }
+	*(cat + a) = '/';
+	a++;
+    for (b = 0; src[b] != '\0'; b++)
+    {
+        *(cat + a) = src[b];
+        a++;
+    }
+    cat[a] = '\0';
+	printf("%s\n", cat);
+    return (cat);
 }
 
 /**

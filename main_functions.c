@@ -17,6 +17,8 @@ void call_shell(void)
 		write(STDOUT_FILENO, "$ ", 2);
 		line = getline(&buff, &chars, stdin);
 		buff[line - 1] = 0;
+		if (buff[0] == 0)
+			continue;
 		words = count_w(buff, " ");
 		command = str_array(buff, words, " ");
 		if (builtin_sel(command) == -1)
@@ -41,10 +43,11 @@ void check_command(char **command, int line_cont)
 		if (!stat(command[0], &st))
 		{
 			under_process(command);
-			free(command);
+			free_arr(command);
 		}
 		else
 		{
+            free_arr(command);
 			write(STDOUT_FILENO, "sh: ", 4);
 			write(STDOUT_FILENO, &line_cont, 1);
 			write(STDOUT_FILENO, command[0], _strlen(command[0]));
@@ -54,6 +57,7 @@ void check_command(char **command, int line_cont)
 	else
 	{
 		handler_dir(command);
+        free_arr(command);
 	}
 }
 
@@ -66,10 +70,9 @@ void check_command(char **command, int line_cont)
 
 void under_process(char **command)
 {
-	int child = 0;
+	int child = 0, zero = 0;
 
 	child = fork();
-	wait(NULL);
 	if (child == 0)
 	{
 		if (execve(command[0], command, environ) == -1)
@@ -83,6 +86,8 @@ void under_process(char **command)
 		perror("Error");
 		exit(EXIT_FAILURE);
 	}
+    else
+        wait(&zero);
 	/*return (child);*/
 }
 
@@ -108,16 +113,18 @@ void handler_dir(char **command)
 		dir = opendir(paths[i]);
 		while((direntp = readdir(dir)) != NULL)
 		{
+			printf("%s\n", paths[i]);
 			if (_strcmp(direntp->d_name, command[0]) == 0)
 			{
-				_strcat(paths[i], "/");
 				dest = _strcat(paths[i], command[0]);
 				command[0] = dest;
 				under_process(command);
+                paths[i] = NULL;
 				break;
 			}
 		}
 		closedir(dir);
 		i++;
 	}
+    free_arr(paths);
 }

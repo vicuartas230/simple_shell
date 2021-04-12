@@ -36,5 +36,6 @@ char *_getenv(const char *name);
 int builtin_sel(char **command);
 void f_exit(void);
 void env(void);
+void clear_s(void);
 
 #endif

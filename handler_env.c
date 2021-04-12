@@ -11,7 +11,7 @@ char *_getenv(const char *name)
 	unsigned int length = 0;
 	char *pos = NULL, *str = NULL;
 
-	length = (_strlen(name) - 1);
+	length = _strlen(name) - 1;
 	while (*environ)
 	{
 		str = *environ;
@@ -22,3 +22,15 @@ char *_getenv(const char *name)
 	}
 	return (NULL);
 }
+
+/*char *_getenv2(const char *name)
+{
+	int i;
+
+	for (i = 0; environ[i]; i++)
+	{
+		if (!strncmp(environ[i], name, 5))
+			return (environ[i]);
+	}
+	return (NULL);
+}*/

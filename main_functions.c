@@ -100,7 +100,6 @@ void handler_dir(char **command)
 	struct stat st;
 
 	path = _getenv("PATH");
-	printf("%s\n", path);
 	words = count_w(path, ":");
 	paths = str_array(path, words, ":");
 	while (paths[i])
@@ -123,14 +122,14 @@ void handler_dir(char **command)
 			k++;
 			j++;
 		}
-		tmp[j] = 0;
+		tmp[j] = '\0';
 		if (!(stat(tmp, &st)))
 		{
 			command[0] = strdup(tmp);
 			free(tmp);
 			under_process(command);
 			break;
-		}
+			}
 		i++;
 	}
 	free(paths);

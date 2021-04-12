@@ -12,6 +12,7 @@ int builtin_sel(char **command)
 	builtin fun_built_arr[] = {
 		{"env", env},
 		{"exit", f_exit},
+		{"clear", clear_s},
 		{NULL, NULL}
 	};
 
@@ -46,9 +47,24 @@ void f_exit(void)
 
 void env(void)
 {
-	while (*environ)
+	int i = 0;
+
+	while (environ[i])
 	{
-		write(STDOUT_FILENO, environ, 100);
-		environ++;
+		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
+		write(STDOUT_FILENO, "\n", 1);
+		i++;
 	}
+}
+
+/**
+ * clear_s - This function clears the screen.
+ * Return: Nothing.
+ */
+
+void clear_s(void)
+{
+	system("clear");
+  /* const char *CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
+  write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 12); */
 }

@@ -14,7 +14,7 @@ void call_shell(void)
 	if (isatty(STDIN_FILENO))
 		while (line != EOF)
 		{
-			buff = NULL;
+			buff = NULL, new_buff = NULL;
 			line_cont++;
 			write(STDOUT_FILENO, "$ ", 2);
 			line = getline(&buff, &chars, stdin);
@@ -37,6 +37,7 @@ void call_shell(void)
 			check_command(command, line_cont);
 		free(new_buff);
 	}
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 /**
@@ -69,7 +70,6 @@ void check_command(char **command, int line_cont)
 	else
 	{
 		handler_dir(command);
-		free_arr(command);
 	}
 }
 
@@ -121,6 +121,7 @@ void handler_dir(char **command)
 	path = _strdup(copy);
 	words = count_w(path, ":");
 	paths = str_array(path, words, ":");
+	free(path);
 	while (paths[i])
 	{
 		dir = opendir(paths[i]);
@@ -130,13 +131,12 @@ void handler_dir(char **command)
 			{
 				cat_p = _strcat(paths[i], command[0]);
 				command[0] = cat_p;
-				free(cat_p);
 				under_process(command);
+				free(cat_p);
                 break;
 			}
 		}
 		closedir(dir);
 		i++;
 	}
-    free_arr(paths);
 }

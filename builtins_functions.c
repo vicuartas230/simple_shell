@@ -21,7 +21,7 @@ int builtin_sel(char **command)
 	{
 		if (_strcmp(command[0], fun_built_arr[i].str_bltn) == 0)
 		{
-			fun_built_arr[i].fun_p();
+			fun_built_arr[i].fun_p(command);
 			return (0);
 		}
 		i++;

@@ -72,10 +72,10 @@ char *_strcpy(char *dest, char *src)
  */
 char *remove_new_line(char *buff)
 {
-	int len = _strlen(buff), i = 0;
+	int i = 0;
 	char *new = NULL;
 
-	new = malloc(sizeof(char) * len);
+	new = malloc(_strlen(buff) * sizeof(char));
 	if (new == NULL)
 		return (NULL);
 	while(buff[i])

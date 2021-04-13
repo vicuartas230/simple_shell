@@ -94,7 +94,6 @@ char *_strcat(char *dest, char *src)
         a++;
     }
     cat[a] = '\0';
-	free(src);
 	free(dest);
 	return (cat);
 }

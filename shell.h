@@ -37,6 +37,6 @@ int builtin_sel(char **command);
 void f_exit(void);
 void env(void);
 void clear_s(void);
-void free_arr(char **command);
+char *remove_new_line(char *buff);
 
 #endif

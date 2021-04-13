@@ -8,29 +8,17 @@
 
 char *_getenv(const char *name)
 {
-	unsigned int length = 0;
+	unsigned int length = 0, i =  0;
 	char *pos = NULL, *str = NULL;
 
 	length = _strlen(name) - 1;
-	while (*environ)
+	while (environ[i])
 	{
-		str = *environ;
+		str = environ[i];
 		pos = _strchr(str, '=');
 		if (pos && (pos - str == length && !_strncmp(str, name, length)))
 			return (pos + 1);
-		environ++;
+		i++;
 	}
 	return (NULL);
 }
-
-/*char *_getenv2(const char *name)
-{
-	int i;
-
-	for (i = 0; environ[i]; i++)
-	{
-		if (!strncmp(environ[i], name, 5))
-			return (environ[i]);
-	}
-	return (NULL);
-}*/

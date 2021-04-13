@@ -9,20 +9,32 @@ void call_shell(void)
 {
 	int line = 0, line_cont = 0, words = 0;
 	size_t chars = 0;
-	char *buff = NULL, **command = NULL;
+	char *buff = NULL, **command = NULL, *new_buff = NULL;
 
-	while (line != EOF)
+	if (isatty(STDIN_FILENO))
+		while (line != EOF)
+		{
+			line_cont++;
+			write(STDOUT_FILENO, "$ ", 2);
+			line = getline(&buff, &chars, stdin);
+			new_buff = remove_new_line(buff);
+			if (new_buff[0] == 0)
+				continue;
+			words = count_w(new_buff, " ");
+			command = str_array(new_buff, words, " ");
+			if (builtin_sel(command) == -1)
+				check_command(command, line_cont);
+			free(new_buff);
+		}
+	else
 	{
-		line_cont++;
-		write(STDOUT_FILENO, "$ ", 2);
 		line = getline(&buff, &chars, stdin);
-		buff[line - 1] = 0;
-		if (buff[0] == 0)
-			continue;
-		words = count_w(buff, " ");
-		command = str_array(buff, words, " ");
+		new_buff = remove_new_line(buff);
+		words = count_w(new_buff, " ");
+		command = str_array(new_buff, words, " ");
 		if (builtin_sel(command) == -1)
 			check_command(command, line_cont);
+		free(new_buff);
 	}
 	free(buff);
 }
@@ -43,11 +55,11 @@ void check_command(char **command, int line_cont)
 		if (!stat(command[0], &st))
 		{
 			under_process(command);
-			free_arr(command);
+			free(command);
 		}
 		else
 		{
-            free_arr(command);
+            free(command);
 			write(STDOUT_FILENO, "sh: ", 4);
 			write(STDOUT_FILENO, &line_cont, 1);
 			write(STDOUT_FILENO, command[0], _strlen(command[0]));
@@ -57,7 +69,6 @@ void check_command(char **command, int line_cont)
 	else
 	{
 		handler_dir(command);
-        free_arr(command);
 	}
 }
 
@@ -101,7 +112,7 @@ void under_process(char **command)
 void handler_dir(char **command)
 {
 	int i = 0, words = 0;
-	char **paths = NULL, *path = NULL, *dest;
+	char **paths = NULL, *path = NULL, *cat_p = NULL;
 	DIR *dir;
 	struct dirent *direntp;
 
@@ -113,18 +124,16 @@ void handler_dir(char **command)
 		dir = opendir(paths[i]);
 		while((direntp = readdir(dir)) != NULL)
 		{
-			printf("%s\n", paths[i]);
 			if (_strcmp(direntp->d_name, command[0]) == 0)
 			{
-				dest = _strcat(paths[i], command[0]);
-				command[0] = dest;
+				cat_p = _strcat(paths[i], command[0]);
+				command[0] = cat_p;
 				under_process(command);
-                paths[i] = NULL;
-				break;
+                break;
 			}
 		}
 		closedir(dir);
 		i++;
 	}
-    free_arr(paths);
+    free(paths[i]);
 }

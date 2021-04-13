@@ -34,7 +34,6 @@ char **str_array(char *line, int words, char *delim)
 {
 	char **tok = NULL;
 	int i = 0;
-	char *aux = NULL;
 
 	tok = malloc((words + 1) * sizeof(char *));
 	if (tok == NULL)
@@ -42,20 +41,9 @@ char **str_array(char *line, int words, char *delim)
 	while (i < words)
 	{
 		if (!i)
-			aux = strtok(line, delim);
+			tok[i] = strtok(line, delim);
 		else
-			aux = strtok(NULL, delim);
-		tok[i] = malloc(_strlen(aux) * sizeof(char));
-		if (tok[i] == NULL)
-		{
-			while (i >= 0)
-			{
-				free(tok[i]);
-				i--;
-			}
-			free(tok);
-		}
-		_strcpy(tok[i], aux); 
+			tok[i] = strtok(NULL, delim); 
 		i++;
 	}
 	tok[i] = NULL;
@@ -105,8 +93,7 @@ char *_strcat(char *dest, char *src)
         a++;
     }
     cat[a] = '\0';
-	printf("%s\n", cat);
-    return (cat);
+	return (cat);
 }
 
 /**

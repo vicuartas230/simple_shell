@@ -66,17 +66,24 @@ char *_strcpy(char *dest, char *src)
 	return (dest);
 }
 /**
- * 
- * 
+ * remove_new_line - This functions removes the new line in the buffer.
+ * @buff: The string to check.
+ * Return: Nothing.
  */
-void free_arr(char **command)
+char *remove_new_line(char *buff)
 {
-	int i = 0;
-
-	while (command[i])
+	int len = _strlen(buff) - 1, i = 0;
+	char *new = NULL;
+	new = malloc(sizeof(char) * len);
+	if (new == NULL)
+		return (NULL);
+	while(buff[i])
 	{
-		free(command[i]);
+		if (buff[i] != '\n')
+			new[i] = buff[i];
+		else
+			new[i] = '\0';
 		i++;
 	}
-	free(command);
+	return (new);
 }

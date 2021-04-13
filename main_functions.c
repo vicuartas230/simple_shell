@@ -14,6 +14,7 @@ void call_shell(void)
 	if (isatty(STDIN_FILENO))
 		while (line != EOF)
 		{
+			buff = NULL;
 			line_cont++;
 			write(STDOUT_FILENO, "$ ", 2);
 			line = getline(&buff, &chars, stdin);
@@ -36,7 +37,6 @@ void call_shell(void)
 			check_command(command, line_cont);
 		free(new_buff);
 	}
-	free(buff);
 }
 
 /**
@@ -55,20 +55,21 @@ void check_command(char **command, int line_cont)
 		if (!stat(command[0], &st))
 		{
 			under_process(command);
-			free(command);
+			free_arr(command);
 		}
 		else
 		{
-            free(command);
 			write(STDOUT_FILENO, "sh: ", 4);
 			write(STDOUT_FILENO, &line_cont, 1);
 			write(STDOUT_FILENO, command[0], _strlen(command[0]));
 			write(STDOUT_FILENO, ": not found\n", 12);
+			free_arr(command);
 		}
 	}
 	else
 	{
 		handler_dir(command);
+		free_arr(command);
 	}
 }
 
@@ -112,11 +113,12 @@ void under_process(char **command)
 void handler_dir(char **command)
 {
 	int i = 0, words = 0;
-	char **paths = NULL, *path = NULL, *cat_p = NULL;
+	char **paths = NULL, *path = NULL, *cat_p = NULL, *copy = NULL;
 	DIR *dir;
 	struct dirent *direntp;
 
-	path = _getenv("PATH");
+	copy = _getenv("PATH");
+	path = _strdup(copy);
 	words = count_w(path, ":");
 	paths = str_array(path, words, ":");
 	while (paths[i])
@@ -128,6 +130,7 @@ void handler_dir(char **command)
 			{
 				cat_p = _strcat(paths[i], command[0]);
 				command[0] = cat_p;
+				free(cat_p);
 				under_process(command);
                 break;
 			}
@@ -135,5 +138,5 @@ void handler_dir(char **command)
 		closedir(dir);
 		i++;
 	}
-    free(paths[i]);
+    free_arr(paths);
 }

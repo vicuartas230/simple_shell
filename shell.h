@@ -38,5 +38,7 @@ void f_exit(void);
 void env(void);
 void clear_s(void);
 char *remove_new_line(char *buff);
+void free_arr(char **command);
+char *_strdup(const char *s);
 
 #endif

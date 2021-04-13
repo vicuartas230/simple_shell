@@ -8,9 +8,9 @@
  */
 char *_strchr(char *s, char c)
 {
-	int a;
+	int a = 0;
 
-	for (a = 0; s[a] != '\0'; a++)
+	for (; s[a] != '\0'; a++)
 	{
 		if (c == s[a])
 		{
@@ -28,9 +28,9 @@ char *_strchr(char *s, char c)
  */
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t a, e;
+	size_t a = 0, e = 0;
 
-	for (a = 0; a < n; a++)
+	for (; a < n; a++)
 	{
 		if (s1[a] != s2[a])
 		{
@@ -57,9 +57,9 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 
 char *_strcpy(char *dest, char *src)
 {
-	int a;
+	int a = 0;
 
-	for (a = 0; a <= _strlen(src); a++)
+	for (; a <= _strlen(src); a++)
 	{
 		dest[a] = src[a];
 	}
@@ -72,8 +72,9 @@ char *_strcpy(char *dest, char *src)
  */
 char *remove_new_line(char *buff)
 {
-	int len = _strlen(buff) - 1, i = 0;
+	int len = _strlen(buff), i = 0;
 	char *new = NULL;
+
 	new = malloc(sizeof(char) * len);
 	if (new == NULL)
 		return (NULL);
@@ -85,5 +86,21 @@ char *remove_new_line(char *buff)
 			new[i] = '\0';
 		i++;
 	}
+	free(buff);
 	return (new);
 }
+/**
+ * 
+ * 
+ */
+void free_arr(char **command)
+{
+	int i = 0;
+
+	for (; command[i]; i++)
+	{
+		free(command[i]);
+	}
+	free(command);
+}
+

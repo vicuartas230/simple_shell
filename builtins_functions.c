@@ -1,8 +1,9 @@
 #include "shell.h"
 
 /**
- *
- *
+ * builtin_sel - Structure for builtin commands
+ * @command: command input
+ * Return: 0 if is bultin or -1 for not
  */
 
 int builtin_sel(char **command)

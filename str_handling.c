@@ -7,19 +7,19 @@
  */
 int count_w(char *buff, char *delim)
 {
-	int step = 0;
+	int step = 0, i = 0;
 	unsigned int words = 0;
 
-	while (*buff)
+	while (buff[i])
 	{
-		if (*buff == delim[0] || *buff == '\n')
+		if (buff[i] == delim[0] || buff[i] == '\n')
 			step = 0;
 		else if (step == 0)
 		{
 			step = 1;
-			++words;
+			words++;
 		}
-		++buff;
+		i++;
 	}
 	return (words);
 }
@@ -32,7 +32,7 @@ int count_w(char *buff, char *delim)
  */
 char **str_array(char *line, int words, char *delim)
 {
-	char **tok = NULL;
+	char **tok = NULL, *cpy = NULL;
 	int i = 0;
 
 	tok = malloc((words + 1) * sizeof(char *));
@@ -41,9 +41,10 @@ char **str_array(char *line, int words, char *delim)
 	while (i < words)
 	{
 		if (!i)
-			tok[i] = strtok(line, delim);
+			cpy = strtok(line, delim);
 		else
-			tok[i] = strtok(NULL, delim); 
+			cpy = strtok(NULL, delim);
+		tok[i] = _strdup(cpy);
 		i++;
 	}
 	tok[i] = NULL;
@@ -61,7 +62,7 @@ int _strlen(const char *s)
 
 	for (i = 0; s[i] != '\0'; i++)
 		;
-	return (i + 1);
+	return (i);
 }
 
 /**
@@ -78,10 +79,10 @@ char *_strcat(char *dest, char *src)
 
 	if (dest == NULL && src == NULL)
 		return (NULL);
-    cat = malloc((_strlen(src) - 2) + _strlen(dest) * sizeof(char));
+    cat = malloc((_strlen(src) + _strlen(dest)) * sizeof(char));
 	if(cat == NULL)
 		return (NULL);
-    for (a = 0; dest[a] != '\0'; ++a)
+    for (a = 0; dest[a] != '\0'; a++)
     {
         *(cat + a) = dest[a];
     }
@@ -93,6 +94,8 @@ char *_strcat(char *dest, char *src)
         a++;
     }
     cat[a] = '\0';
+	free(src);
+	free(dest);
 	return (cat);
 }
 

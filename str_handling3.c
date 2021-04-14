@@ -66,5 +66,15 @@ char *int_to_a(int n)
 		n /= 10;
 	}
 	p = &s[i];
-	return (p);
+	t = malloc((_strlen(p) + 1) * sizeof(char));
+	if (t == NULL)
+		return (NULL);
+	while (*p)
+	{
+		t[j] = *(p);
+		p++, j++;
+	}
+	t[j] = '\0';
+	free(s);
+	return (t);
 }

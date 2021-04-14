@@ -40,7 +40,6 @@ void call_shell(void)
 		command = str_array(new_buff, words, " ");
 		if (builtin_sel(command) == -1)
 			check_command(command, line_cont);
-		/* free(new_buff); */
 	}
 	free(new_buff);
 	write(STDOUT_FILENO, "\n", 1);
@@ -73,6 +72,7 @@ void check_command(char **command, int line_cont)
 	else
 	{
 		handler_dir(command, line_cont);
+		free_arr(command);
 	}
 }
 
@@ -137,7 +137,6 @@ void handler_dir(char **command, int line_cont)
 				free_arr(paths);
 				free(cat_p);
 				under_process(command);
-				free_arr(command);
 				flag = 1;
 				break;
 			}

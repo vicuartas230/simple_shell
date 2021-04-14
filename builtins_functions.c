@@ -3,6 +3,7 @@
 /**
  * builtin_sel - Structure for builtin commands
  * @command: command input
+ * @new_buff: getline buffer
  * Return: 0 if is bultin or -1 for not
  */
 
@@ -30,6 +31,8 @@ int builtin_sel(char **command, char *new_buff)
 
 /**
  * f_exit - This function finishes the program.
+ * @command: command input
+ * @new_buff: getline buffer
  * Return: Nothing.
  */
 
@@ -42,6 +45,7 @@ void f_exit(char **command, char *new_buff)
 
 /**
  * env - This function prints the enviroment.
+ * @command: command input
  * Return: Nothing.
  */
 

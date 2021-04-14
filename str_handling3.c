@@ -36,9 +36,9 @@ void print_err(char **command, int line_cont)
 	num = int_to_a(line_cont);
 	write(STDOUT_FILENO, "sh: ", 4);
 	write(STDOUT_FILENO, num, _strlen(num));
+	free(num);
 	write(STDOUT_FILENO, command[0], _strlen(command[0]));
 	write(STDOUT_FILENO, ": not found\n", 12);
-	/* free(num); */
 }
 
 /**
@@ -48,10 +48,12 @@ void print_err(char **command, int line_cont)
 
 char *int_to_a(int n)
 {
-	int i = 31;
-	char *s = NULL, *p = NULL;
+	int i = 31, j = 0;
+	char *s = NULL, *p = NULL, *t = NULL;
 
 	s = malloc(32 * sizeof(char));
+	if (s == NULL)
+		return (NULL);
 	s[i--] = '\0';
 	s[i--] = ' ';
 	s[i] = ':';
@@ -61,5 +63,15 @@ char *int_to_a(int n)
 		n /= 10;
 	}
 	p = &s[i];
-	return (p);
+	t = malloc((_strlen(p) + 1) * sizeof(char));
+	if (t == NULL)
+		return (NULL);
+	while (*p)
+	{
+		t[j] = *(p);
+		p++, j++;
+	}
+	t[j] = '\0';
+	free(s);
+	return (t);
 }

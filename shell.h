@@ -26,7 +26,6 @@ int _strlen(const char *s);
 void under_process(char **command);
 void check_command(char **command, int line_cont);
 void  handler_dir(char **command, int line_cont);
-char *_strstr(char *haystack, char *needle);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);

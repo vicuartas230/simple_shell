@@ -73,7 +73,6 @@ void check_command(char **command, int line_cont)
 	else
 	{
 		handler_dir(command, line_cont);
-		free_arr(command);
 	}
 }
 
@@ -116,8 +115,8 @@ void under_process(char **command)
 
 void handler_dir(char **command, int line_cont)
 {
-	int i = 0, words = 0;
-	char **paths = NULL, *path = NULL, *cat_p = NULL, *copy = NULL, flag = 'e';
+	int i = 0, words = 0, flag = 0;
+	char **paths = NULL, *path = NULL, *cat_p = NULL, *copy = NULL;
 	DIR *dir;
 	struct dirent *direntp;
 
@@ -126,7 +125,7 @@ void handler_dir(char **command, int line_cont)
 	words = count_w(path, ":");
 	paths = str_array(path, words, ":");
 	free(path);
-	while (paths[i] && flag == 'e')
+	while (paths[i] && !flag)
 	{
 		dir = opendir(paths[i]);
 		while ((direntp = readdir(dir)) != NULL)
@@ -136,15 +135,16 @@ void handler_dir(char **command, int line_cont)
 				cat_p = _strcat(paths[i], command[0]);
 				command[0] = _strdup(cat_p);
 				free_arr(paths);
-				under_process(command);
 				free(cat_p);
-				flag = 's';
+				under_process(command);
+				free_arr(command);
+				flag = 1;
 				break;
 			}
 		}
 		closedir(dir);
 		i++;
 	}
-	if ((flag == 'e') && !(paths[i]))
-		print_err(command, line_cont);
+	if (!flag && !(paths[i]))
+		print_err(command, line_cont), free_arr(command), free_arr(paths);
 }

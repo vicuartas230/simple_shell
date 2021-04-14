@@ -42,7 +42,6 @@ void call_shell(void)
 			check_command(command, line_cont);
 	}
 	free(new_buff);
-	write(STDOUT_FILENO, "\n", 1);
 }
 
 /**

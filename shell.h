@@ -12,7 +12,11 @@
 #include <dirent.h>
 
 extern char **environ;
-
+/**
+ * struct built - Structure for builtin commands
+ * @str_bltn: string to compare with standard input
+ * @fun_p: function to call the respective builtin
+ */
 typedef struct built
 {
 	char *str_bltn;

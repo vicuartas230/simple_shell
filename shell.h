@@ -25,7 +25,7 @@ char **str_array(char *line, int words, char *delim);
 int _strlen(const char *s);
 void under_process(char **command);
 void check_command(char **command, int line_cont);
-void  handler_dir(char **command);
+void  handler_dir(char **command, int line_cont);
 char *_strstr(char *haystack, char *needle);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strcat(char *dest, char *src);
@@ -40,5 +40,7 @@ void clear_s(void);
 char *remove_new_line(char *buff);
 void free_arr(char **command);
 char *_strdup(const char *s);
+void print_err(char **command, int line_cont);
+char *int_to_a(int n);
 
 #endif

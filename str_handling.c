@@ -74,27 +74,27 @@ int _strlen(const char *s)
 
 char *_strcat(char *dest, char *src)
 {
-    int a = 0, b = 0;
-    char *cat = NULL;
+	int a = 0, b = 0;
+	char *cat = NULL;
 
 	if (dest == NULL && src == NULL)
 		return (NULL);
-    cat = malloc((_strlen(src) + _strlen(dest)) * sizeof(char));
+	cat = malloc((_strlen(src) + _strlen(dest) + 2) * sizeof(char));
 	if(cat == NULL)
 		return (NULL);
-    for (a = 0; dest[a] != '\0'; a++)
-    {
-        *(cat + a) = dest[a];
-    }
+	for (a = 0; dest[a] != '\0'; a++)
+	{
+		*(cat + a) = dest[a];
+	}
 	*(cat + a) = '/';
 	a++;
-    for (b = 0; src[b] != '\0'; b++)
-    {
-        *(cat + a) = src[b];
-        a++;
-    }
-    cat[a] = '\0';
-	free(dest);
+	for (b = 0; src[b] != '\0'; b++)
+	{
+		*(cat + a) = src[b];
+		a++;
+	}
+	cat[a] = '\0';
+	free(src);
 	return (cat);
 }
 

@@ -18,6 +18,11 @@ void call_shell(void)
 			line_cont++;
 			write(STDOUT_FILENO, "$ ", 2);
 			line = getline(&buff, &chars, stdin);
+			if (line == EOF)
+			{
+				free(buff);
+				break;
+			}
 			new_buff = remove_new_line(buff);
 			if (new_buff[0] == 0)
 				continue;
@@ -35,8 +40,9 @@ void call_shell(void)
 		command = str_array(new_buff, words, " ");
 		if (builtin_sel(command) == -1)
 			check_command(command, line_cont);
-		free(new_buff);
+		/* free(new_buff); */
 	}
+	free(new_buff);
 	write(STDOUT_FILENO, "\n", 1);
 }
 
@@ -60,16 +66,14 @@ void check_command(char **command, int line_cont)
 		}
 		else
 		{
-			write(STDOUT_FILENO, "sh: ", 4);
-			write(STDOUT_FILENO, &line_cont, 1);
-			write(STDOUT_FILENO, command[0], _strlen(command[0]));
-			write(STDOUT_FILENO, ": not found\n", 12);
+			print_err(command, line_cont);
 			free_arr(command);
 		}
 	}
 	else
 	{
-		handler_dir(command);
+		handler_dir(command, line_cont);
+		free_arr(command);
 	}
 }
 
@@ -98,8 +102,8 @@ void under_process(char **command)
 		perror("Error");
 		exit(EXIT_FAILURE);
 	}
-    else
-        wait(&zero);
+	else
+		wait(&zero);
 	/*return (child);*/
 }
 
@@ -110,10 +114,10 @@ void under_process(char **command)
  * Return: Nothing.
  */
 
-void handler_dir(char **command)
+void handler_dir(char **command, int line_cont)
 {
 	int i = 0, words = 0;
-	char **paths = NULL, *path = NULL, *cat_p = NULL, *copy = NULL;
+	char **paths = NULL, *path = NULL, *cat_p = NULL, *copy = NULL, flag = 'e';
 	DIR *dir;
 	struct dirent *direntp;
 
@@ -122,21 +126,25 @@ void handler_dir(char **command)
 	words = count_w(path, ":");
 	paths = str_array(path, words, ":");
 	free(path);
-	while (paths[i])
+	while (paths[i] && flag == 'e')
 	{
 		dir = opendir(paths[i]);
-		while((direntp = readdir(dir)) != NULL)
+		while ((direntp = readdir(dir)) != NULL)
 		{
 			if (_strcmp(direntp->d_name, command[0]) == 0)
 			{
 				cat_p = _strcat(paths[i], command[0]);
-				command[0] = cat_p;
+				command[0] = _strdup(cat_p);
+				free_arr(paths);
 				under_process(command);
 				free(cat_p);
-                break;
+				flag = 's';
+				break;
 			}
 		}
 		closedir(dir);
 		i++;
 	}
+	if ((flag == 'e') && !(paths[i]))
+		print_err(command, line_cont);
 }

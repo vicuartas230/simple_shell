@@ -7,6 +7,8 @@
 
 int main(void)
 {
-	call_shell();
-	return (0);
+	int code = 0;
+
+	code = call_shell();
+	return (code);
 }

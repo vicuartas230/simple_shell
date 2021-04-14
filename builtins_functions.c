@@ -7,7 +7,7 @@
  * Return: 0 if is bultin or -1 for not
  */
 
-int builtin_sel(char **command, char *new_buff)
+int builtin_sel(char **command, char *new_buff, int code)
 {
 	int i = 0;
 
@@ -21,7 +21,7 @@ int builtin_sel(char **command, char *new_buff)
 	{
 		if (_strcmp(command[0], fun_built_arr[i].str_bltn) == 0)
 		{
-			fun_built_arr[i].fun_p(command, new_buff);
+			fun_built_arr[i].fun_p(command, new_buff, code);
 			return (0);
 		}
 		i++;
@@ -36,11 +36,11 @@ int builtin_sel(char **command, char *new_buff)
  * Return: Nothing.
  */
 
-void f_exit(char **command, char *new_buff)
+void f_exit(char **command, char *new_buff, int code)
 {
 	free_arr(command);
 	free(new_buff);
-	exit(EXIT_SUCCESS);
+	exit(code);
 }
 
 /**

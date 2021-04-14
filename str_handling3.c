@@ -31,7 +31,7 @@ char *_strdup(const char *s)
  * Return: nothing
  */
 
-void print_err(char **command, int line_cont)
+int print_err(char **command, int line_cont)
 {
 	char *num = NULL;
 
@@ -41,6 +41,7 @@ void print_err(char **command, int line_cont)
 	free(num);
 	write(STDOUT_FILENO, command[0], _strlen(command[0]));
 	write(STDOUT_FILENO, ": not found\n", 12);
+	return (127);
 }
 
 /**

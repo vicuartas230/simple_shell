@@ -24,26 +24,26 @@ typedef struct built
 } builtin;
 
 int count_w(char *buff, char *delim);
-void call_shell(void);
+int call_shell(void);
 char **str_array(char *line, int words, char *delim);
 int _strlen(const char *s);
 void under_process(char **command);
-void check_command(char **command, int line_cont);
-void  handler_dir(char **command, int line_cont);
+int check_command(char **command, int line_cont);
+int  handler_dir(char **command, int line_cont);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 char *_strchr(char *s, char c);
 char *_strcpy(char *dest, char *src);
 char *_getenv(const char *name);
-int builtin_sel(char **command, char *new_buff);
-void f_exit(char **command, char *new_buff);
+int builtin_sel(char **command, char *new_buff, int code);
+void f_exit(char **command, char *new_buff, int code);
 void _env(char **command);
 void clear_s(void);
 char *remove_new_line(char *buff);
 void free_arr(char **command);
 char *_strdup(const char *s);
-void print_err(char **command, int line_cont);
+int print_err(char **command, int line_cont);
 char *int_to_a(int n);
 
 #endif

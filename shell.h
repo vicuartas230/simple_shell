@@ -38,7 +38,7 @@ char *_strcpy(char *dest, char *src);
 char *_getenv(const char *name);
 int builtin_sel(char **command, char *new_buff);
 void f_exit(char **command, char *new_buff);
-void env(char **command);
+void _env(char **command);
 void clear_s(void);
 char *remove_new_line(char *buff);
 void free_arr(char **command);

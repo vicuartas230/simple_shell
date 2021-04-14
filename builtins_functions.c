@@ -12,7 +12,7 @@ int builtin_sel(char **command, char *new_buff)
 	int i = 0;
 
 	builtin fun_built_arr[] = {
-		{"env", env},
+		{"env", _env},
 		{"exit", f_exit},
 		{NULL, NULL}
 	};
@@ -44,12 +44,12 @@ void f_exit(char **command, char *new_buff)
 }
 
 /**
- * env - This function prints the enviroment.
+ * _env - This function prints the enviroment.
  * @command: command input
  * Return: Nothing.
  */
 
-void env(char **command)
+void _env(char **command)
 {
 	int i = 0;
 

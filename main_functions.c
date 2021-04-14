@@ -28,7 +28,7 @@ void call_shell(void)
 				continue;
 			words = count_w(new_buff, " ");
 			command = str_array(new_buff, words, " ");
-			if (builtin_sel(command) == -1)
+			if (builtin_sel(command, new_buff) == -1)
 				check_command(command, line_cont);
 			free(new_buff);
 		}
@@ -38,7 +38,7 @@ void call_shell(void)
 		new_buff = remove_new_line(buff);
 		words = count_w(new_buff, " ");
 		command = str_array(new_buff, words, " ");
-		if (builtin_sel(command) == -1)
+		if (builtin_sel(command, new_buff) == -1)
 			check_command(command, line_cont);
 	}
 	free(new_buff);
@@ -72,7 +72,6 @@ void check_command(char **command, int line_cont)
 	else
 	{
 		handler_dir(command, line_cont);
-		free_arr(command);
 	}
 }
 
@@ -134,9 +133,9 @@ void handler_dir(char **command, int line_cont)
 			{
 				cat_p = _strcat(paths[i], command[0]);
 				command[0] = _strdup(cat_p);
-				free_arr(paths);
 				free(cat_p);
 				under_process(command);
+				free_arr(command);
 				flag = 1;
 				break;
 			}
@@ -145,5 +144,6 @@ void handler_dir(char **command, int line_cont)
 		i++;
 	}
 	if (!flag && !(paths[i]))
-		print_err(command, line_cont), free_arr(command), free_arr(paths);
+		print_err(command, line_cont), free_arr(command);
+	free_arr(paths);
 }

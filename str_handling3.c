@@ -25,8 +25,10 @@ char *_strdup(const char *s)
 }
 
 /**
- * 
- * 
+ * print_err - Function to print error message
+ * @command: Command input
+ * @line_cont: number of lines of commands
+ * Return: nothing
  */
 
 void print_err(char **command, int line_cont)
@@ -42,8 +44,9 @@ void print_err(char **command, int line_cont)
 }
 
 /**
- * 
- * 
+ * int_to_a - Function that converts an integer into string
+ * @n: integer to convert
+ * Return: String from integer
  */
 
 char *int_to_a(int n)
@@ -63,15 +66,5 @@ char *int_to_a(int n)
 		n /= 10;
 	}
 	p = &s[i];
-	t = malloc((_strlen(p) + 1) * sizeof(char));
-	if (t == NULL)
-		return (NULL);
-	while (*p)
-	{
-		t[j] = *(p);
-		p++, j++;
-	}
-	t[j] = '\0';
-	free(s);
-	return (t);
+	return (p);
 }

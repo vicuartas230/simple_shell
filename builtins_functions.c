@@ -30,14 +30,14 @@ int builtin_sel(char **command)
 }
 
 /**
- * _exit - This function finishes the program.
+ * f_exit - This function finishes the program.
  * Return: Nothing.
  */
 
 void f_exit(void)
 {
-/*	free(command);
-	free(buff);*/
+/*	free(command);*/
+	/*free(buff);*/
 	exit(EXIT_SUCCESS);
 }
 
@@ -66,6 +66,4 @@ void env(void)
 void clear_s(void)
 {
 	system("clear");
-  /* const char *CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
-  write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 12); */
 }

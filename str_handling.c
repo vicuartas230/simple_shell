@@ -80,7 +80,7 @@ char *_strcat(char *dest, char *src)
 	if (dest == NULL && src == NULL)
 		return (NULL);
 	cat = malloc((_strlen(src) + _strlen(dest) + 2) * sizeof(char));
-	if(cat == NULL)
+	if (cat == NULL)
 		return (NULL);
 	for (a = 0; dest[a] != '\0'; a++)
 	{

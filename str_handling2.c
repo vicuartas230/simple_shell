@@ -47,14 +47,10 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 
 /**
  * *_strcpy - This function copies the string pontied
- *
  * @dest: The destine of string
- *
  * @src: The source of string
- *
  * Return: 0 (Success)
  */
-
 char *_strcpy(char *dest, char *src)
 {
 	int a = 0;
@@ -78,7 +74,7 @@ char *remove_new_line(char *buff)
 	new = malloc(_strlen(buff) * sizeof(char));
 	if (new == NULL)
 		return (NULL);
-	while(buff[i])
+	while (buff[i])
 	{
 		if (buff[i] != '\n')
 			new[i] = buff[i];
@@ -90,8 +86,9 @@ char *remove_new_line(char *buff)
 	return (new);
 }
 /**
- * 
- * 
+ * free_arr - Function to free memory in an array of pointers
+ * @command: command input
+ * Return: nothing
  */
 void free_arr(char **command)
 {
@@ -103,4 +100,3 @@ void free_arr(char **command)
 	}
 	free(command);
 }
-

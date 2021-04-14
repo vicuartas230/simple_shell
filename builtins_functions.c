@@ -6,7 +6,7 @@
  * Return: 0 if is bultin or -1 for not
  */
 
-int builtin_sel(char **command)
+int builtin_sel(char **command, char *new_buff)
 {
 	int i = 0;
 
@@ -20,7 +20,7 @@ int builtin_sel(char **command)
 	{
 		if (_strcmp(command[0], fun_built_arr[i].str_bltn) == 0)
 		{
-			fun_built_arr[i].fun_p(command);
+			fun_built_arr[i].fun_p(command, new_buff);
 			return (0);
 		}
 		i++;
@@ -33,10 +33,10 @@ int builtin_sel(char **command)
  * Return: Nothing.
  */
 
-void f_exit(void)
+void f_exit(char **command, char *new_buff)
 {
-/*	free(command);*/
-	/*free(buff);*/
+	free_arr(command);
+	free(new_buff);
 	exit(EXIT_SUCCESS);
 }
 
@@ -45,7 +45,7 @@ void f_exit(void)
  * Return: Nothing.
  */
 
-void env(void)
+void env(char **command)
 {
 	int i = 0;
 
@@ -55,4 +55,5 @@ void env(void)
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
+	free_arr(command);
 }

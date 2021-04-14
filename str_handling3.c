@@ -36,7 +36,7 @@ int print_err(char **command, int line_cont)
 	char *num = NULL;
 
 	num = int_to_a(line_cont);
-	write(STDOUT_FILENO, "sh: ", 4);
+	write(STDOUT_FILENO, "./hsh: ", 7);
 	write(STDOUT_FILENO, num, _strlen(num));
 	free(num);
 	write(STDOUT_FILENO, command[0], _strlen(command[0]));

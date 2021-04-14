@@ -20,6 +20,7 @@ int call_shell(void)
 			line = getline(&buff, &chars, stdin);
 			if (line == EOF)
 			{
+				write(STDOUT_FILENO, "\n", 1);
 				free(buff);
 				break;
 			}
@@ -27,6 +28,8 @@ int call_shell(void)
 			if (new_buff[0] == 0)
 				continue;
 			words = count_w(new_buff, " ");
+			if (words == 0)
+				continue;
 			command = str_array(new_buff, words, " ");
 			if (builtin_sel(command, new_buff, code) == -1)
 				code = check_command(command, line_cont);

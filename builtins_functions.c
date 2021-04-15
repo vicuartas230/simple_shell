@@ -4,6 +4,7 @@
  * builtin_sel - Structure for builtin commands
  * @command: command input
  * @new_buff: getline buffer
+ * @code: The code of execution of the process.
  * Return: 0 if is bultin or -1 for not
  */
 
@@ -14,6 +15,8 @@ int builtin_sel(char **command, char *new_buff, int code)
 	builtin fun_built_arr[] = {
 		{"env", _env},
 		{"exit", f_exit},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
 		{NULL, NULL}
 	};
 
@@ -33,6 +36,7 @@ int builtin_sel(char **command, char *new_buff, int code)
  * f_exit - This function finishes the program.
  * @command: command input
  * @new_buff: getline buffer
+ * @code: The code of execution of the process.
  * Return: Nothing.
  */
 

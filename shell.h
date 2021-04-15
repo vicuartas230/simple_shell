@@ -24,7 +24,6 @@ typedef struct built
 } builtin;
 
 int count_w(char *buff, char *delim);
-int call_shell(void);
 char **str_array(char *line, int words, char *delim);
 int _strlen(const char *s);
 void under_process(char **command);
@@ -45,5 +44,11 @@ void free_arr(char **command);
 char *_strdup(const char *s);
 int print_err(char **command, int line_cont);
 char *int_to_a(int n);
+int interactive(void);
+int non_interactive(void);
+void cancel_cc(int sig_num);
+void _setenv(char **command);
+void _unsetenv(char **command);
+char *fill(const char *command, const char *value);
 
 #endif

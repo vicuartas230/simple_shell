@@ -140,3 +140,5 @@ https://drive.google.com/file/d/1dKan1-WmQa6jGAaGXyPxi-HVMXfh39Wd/view?usp=shari
 
 ## 📌 About 
 Created on  `Ubuntu 14.04 LTS`. Compiled with  `gcc 4.8.4`, in this way:  `gcc -Wall -Werror -Wextra -pedantic *.c -o hsh`
+
+By `Victor cuartas` <a>https://github.com/vicuartas230</a> and `Andrea Castrillón` <a>https://github.com/Andrecast</a>

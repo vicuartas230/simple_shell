@@ -1,39 +1,57 @@
-### **Name**
+### Name 
 
 Shell
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#sypnosis)**Sypnosis**
+###  Sypnosis
 
 hsh [options] [name]
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#description)**Description**
+###  Description
 
-La Shell es un interprete de lenguaje de comandos que ejecuta comandos leídos de la entrada estandar (del teclado) o de un archivo. It is a command interpreter, a computer program that provides an interface between the user and the operating system allowing access to its services. Una vez se le introduce un comando a la shell en el prompt, incialmente, es buscado en los comandos builtins, sino se encuentra procede a buscar en la variable de ambiente PATH, la cual, contiene todos los ejecutables del sistema. Una vez encontrado el ejecutable se revisan los argumentos del comando para su posterior ejecución. Si el comando que se introduce no es encontrado en los ejecutables, se imprime un error y el consecutivo que cuenta el número de comandos ingresados.
+The Shell is a command language interpreter that executes commands read from standard input (keyboard) 
+or from a file. It is a command interpreter, a computer program that provides an interface between the user 
+and the Operating System allowing access to its services. Once a command is introduced to the shell at the 
+prompt, it is initially searched for in the builtins commands, otherwise it is found, it proceeds to search 
+the PATH environment variable, which contains all the executables on the system. Once the executable is 
+found, the command's arguments are reviewed for later execution. If the command that is entered is not found 
+in the executables, an error is printed and the consecutive one that counts the number of commands entered.
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#arguments)**Arguments**
+### Arguments
 
-La primera palabra que se introduzca en el prompt va a ser tenida en cuenta por la shell como el comando e iniciará la busqueda primero en las funciones incorporadas o builtins y luego en los ejecutables que se encuentran en el PATH, si el comando es encontrado, la shell procede a interpretarlo, ya sea una sola palabra o que está acompañada de argumentos como flags o rutas según sea el caso.
+The first word that is entered at the prompt will be taken into account by the shell as the command and will 
+start the search first in the built-in functions or builtins and then in the executables found in the PATH, 
+if the command is found, the shell proceeds to interpret it, either a single word or that is accompanied by 
+arguments such as flags or routes as the case may be.
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#invocation)**Invocation**
+### Invocation
 
-La shell se puede usar tanto en modo interactivo, como en modo no interactivo. El modo interactivo, se refiere a que para utilizar la shell se tiene que ejecutar e introducir comandos a través del prompt para su posterior ejecucióm. El modo no interactivo en cambio, permite enviarle comandos a la shell a través de archvivos.
+The shell can be used in both interactive and non-interactive mode. Interactive mode refers to the fact that 
+to use the shell you have to execute and enter commands through the prompt for later execution. 
+The non-interactive mode, on the other hand, allows you to send commands to the shell through files.
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#signals)**Signals**
+### Signals
 
-La shell tiene la capacidad de entender algunas señales que se le envían a través de la entrada estandar, y se utilizan normalmente para terminar la interacción. Ctrl + d se usa para terminar la ejecución de la shell.
+The shell has the ability to understand some signals that are sent to it through standard input, and are 
+normally used to terminate the interaction. Ctrl + d is used to terminate the shell execution.
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#prompting)**Prompting**
+### Prompting
 
-Cuando la shell se ejecuta interactivamente, muestra el prompt inicial, lo que quiere decir que está lista para leer un comando, una vez se ejecuta, el prompt queda listo para el siguiente comando. Si el comando que se introduce no es encontrado en los ejecutables, se imprime un error y el consecutivo que cuenta el número de comandos ingresados.
+When the shell is run interactively, it shows the initial prompt, which means that it is ready to read a 
+command, once it is run, the prompt is ready for the next command. If the command that is entered is not 
+found in the executables, an error is printed and the consecutive one that counts the number of commands 
+entered.
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#builtins-commands)**Builtins Commands**
+### Builtins Commands
 
-Son los comandos que trae la shell incorporados, es decir, son funciones que se incluyen en el código y que cuentan con una función específica.
+They are the built-in shell commands, that is, they are functions that are included in the code and that 
+have a specific function.
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#exit)**Exit**
+### Exit
 
-Causa que la shell salga sin un estado de n. Si se omite n, El estado de salida es el del último comando ejecutado. Se ejecuta una trampa en EXIT antes de que la shell termine.
+Causes the shell to exit without a state of n. If n is omitted, the exit status is that of the last command 
+executed. A trap is executed on EXIT before the shell exits.
 
-### [](https://github.com/vicuartas230/simple_shell/wiki#env)**Env**
+### Env
 
-Al ingresar este comando por la entrada estandar se envía a la salida estandar todas las variables de entorno que existen en el momento en que se hace la ejecución.
+When entering this command through the standard input, all the environment variables that exist at the time 
+the execution is carried out are sent to the standard output.

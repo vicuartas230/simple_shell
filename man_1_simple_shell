@@ -1,12 +1,12 @@
-### Name 
+> ## Name
 
 Shell
 
-###  Sypnosis
+> ##  Sypnosis
 
 hsh [options] [name]
 
-###  Description
+> ##  Description
 
 The Shell is a command language interpreter that executes commands read from standard input (keyboard) 
 or from a file. It is a command interpreter, a computer program that provides an interface between the user 
@@ -16,42 +16,42 @@ the PATH environment variable, which contains all the executables on the system.
 found, the command's arguments are reviewed for later execution. If the command that is entered is not found 
 in the executables, an error is printed and the consecutive one that counts the number of commands entered.
 
-### Arguments
+> ## Arguments
 
 The first word that is entered at the prompt will be taken into account by the shell as the command and will 
 start the search first in the built-in functions or builtins and then in the executables found in the PATH, 
 if the command is found, the shell proceeds to interpret it, either a single word or that is accompanied by 
 arguments such as flags or routes as the case may be.
 
-### Invocation
+> ## Invocation
 
 The shell can be used in both interactive and non-interactive mode. Interactive mode refers to the fact that 
 to use the shell you have to execute and enter commands through the prompt for later execution. 
 The non-interactive mode, on the other hand, allows you to send commands to the shell through files.
 
-### Signals
+> ## Signals
 
 The shell has the ability to understand some signals that are sent to it through standard input, and are 
 normally used to terminate the interaction. Ctrl + d is used to terminate the shell execution.
 
-### Prompting
+> ## Prompting
 
 When the shell is run interactively, it shows the initial prompt, which means that it is ready to read a 
 command, once it is run, the prompt is ready for the next command. If the command that is entered is not 
 found in the executables, an error is printed and the consecutive one that counts the number of commands 
 entered.
 
-### Builtins Commands
+> ## Builtins Commands
 
 They are the built-in shell commands, that is, they are functions that are included in the code and that 
 have a specific function.
 
-### Exit
+> ## Exit
 
 Causes the shell to exit without a state of n. If n is omitted, the exit status is that of the last command 
 executed. A trap is executed on EXIT before the shell exits.
 
-### Env
+> ## Env
 
 When entering this command through the standard input, all the environment variables that exist at the time 
 the execution is carried out are sent to the standard output.

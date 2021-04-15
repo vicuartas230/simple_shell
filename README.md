@@ -80,7 +80,26 @@ Let's use the **ps** command for listing proccess actually in execution:
      5763 pts/3    00:00:00 ps
     $ 
 
-Shelley also works in non-interactive mode:
+hsh shell also works in non-interactive mode:
+
+    andrecast@MED-PF1NQ8WJ:~/simple_shell$ echo "ls -ltr" | ./hsh
+    total 216
+    -rw-r--r-- 1 andrecast andrecast    166 Apr 12 12:34 AUTHORS
+    -rw-r--r-- 1 andrecast andrecast   1782 Apr 13 22:49 str_handling2.c
+    -rw-r--r-- 1 andrecast andrecast   2230 Apr 13 22:49 str_handling.c
+    -rw-r--r-- 1 andrecast andrecast    500 Apr 13 22:54 handler_env.c
+    -rw-r--r-- 1 andrecast andrecast   1314 Apr 14 14:15 shell.h
+    -rw-r--r-- 1 andrecast andrecast    148 Apr 14 14:15 main.c
+    -rw-r--r-- 1 andrecast andrecast   1463 Apr 14 17:53 str_handling3.c
+    -rw-r--r-- 1 andrecast andrecast   1062 Apr 14 17:54 builtins_functions.c
+    drwxr-xr-x 3 andrecast andrecast   4096 Apr 14 18:18 Test-Suite
+    -rw-r--r-- 1 andrecast andrecast   3351 Apr 14 18:33 main_functions.c
+    -rw-r--r-- 1 andrecast andrecast   2624 Apr 14 21:38 man_1_simple_shell
+    -rw-r--r-- 1 andrecast andrecast      0 Apr 14 22:01 header.h
+    -rw-r--r-- 1 andrecast andrecast      0 Apr 14 22:01 holberton.h
+    -rwxr-xr-x 1 andrecast andrecast  22576 Apr 14 22:23 hsh
+    -rwxr-xr-x 1 andrecast andrecast 142144 Apr 14 22:23 ls2
+    -rw-r--r-- 1 andrecast andrecast   4259 Apr 14 22:53 README.md
 
   
 
@@ -117,7 +136,7 @@ Shelley also works in non-interactive mode:
 
 -   Simple Shell
 
-[https://drive.google.com/file/d/1hTc2UefJ6vC0fjqGmLy5DBt1ys1bKdiA/view?usp=sharing](https://drive.google.com/file/d/1hTc2UefJ6vC0fjqGmLy5DBt1ys1bKdiA/view?usp=sharing)
+https://drive.google.com/file/d/1dKan1-WmQa6jGAaGXyPxi-HVMXfh39Wd/view?usp=sharing 
 
 ## 📌 About 
 Created on  `Ubuntu 14.04 LTS`. Compiled with  `gcc 4.8.4`, in this way:  `gcc -Wall -Werror -Wextra -pedantic *.c -o hsh`

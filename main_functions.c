@@ -59,6 +59,7 @@ int check_command(char **command, int line_cont)
 {
 	int code = 0;
 	struct stat st;
+	char **exec = NULL;
 
 	if (command[0][0] == '/')
 	{
@@ -73,6 +74,14 @@ int check_command(char **command, int line_cont)
 			free_arr(command);
 		}
 	}
+	else if (!stat(command[0], &st))
+	{
+		exec = str_array(command[0], 1, "\n");
+		under_process(exec);
+		free_arr(command);
+		free_arr(exec);
+	}
+	
 	else
 	{
 		code = handler_dir(command, line_cont);

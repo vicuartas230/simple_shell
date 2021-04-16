@@ -57,6 +57,11 @@ int non_interactive(void)
 			continue;
 		new_buff = remove_new_line(buffer);
 		words = count_w(new_buff, " ");
+		if (!words)
+		{
+			free(new_buff);
+			continue;
+		}
 		command = str_array(new_buff, words, " ");
 		if (builtin_sel(command, new_buff, code) == -1)
 			code = check_command(command, line_cont);

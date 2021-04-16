@@ -23,6 +23,7 @@ int interactive(void)
 			break;
 		}
 		new_buff = remove_new_line(buff);
+		free(buff);
 		if (new_buff[0] == 0)
 			continue;
 		words = count_w(new_buff, " ");
@@ -45,35 +46,23 @@ int interactive(void)
 
 int non_interactive(void)
 {
-	int line_cont = 0, words = 0, code = 0, i = 0, j = 0, state = 0;
-	char *tmp, **command = NULL, buffer[BUFSIZ];
+	int  code = 0;
+	unsigned int line_cont = 0, words = 0;
+	char **command = NULL, *buffer = NULL, *new_buff = NULL;
+	size_t chars = 0;
 
-	read(STDIN_FILENO, buffer, BUFSIZ);
-	/* line = getline(&buffer, &chars, stdin); */
-	while (buffer[i] && i <= _strlen(buffer))
+	while (getline(&buffer, &chars, stdin) != EOF)
 	{
-		tmp = NULL;
-		tmp = malloc(64 * sizeof(char));
-		state = 0, j = 0, command = NULL;
-		while (state == 0)
-		{
-			if (buffer[i] == '\n' || buffer[i] == '\0')
-			{
-				tmp[j] = '\0', state = 1;
-				if (*tmp)
-				{
-					words = count_w(tmp, " ");
-					command = str_array(tmp, words, " ");
-					if (builtin_sel(command, buffer, code) == -1)
-						code = check_command(command, line_cont);
-				}
-			}
-			else
-				tmp[j] = buffer[i];
-			i++, j++;
-		}
-		free(tmp);
+		if (buffer[0] == '\n')
+			continue;
+		new_buff = remove_new_line(buffer);
+		words = count_w(new_buff, " ");
+		command = str_array(new_buff, words, " ");
+		if (builtin_sel(command, new_buff, code) == -1)
+			code = check_command(command, line_cont);
+		free(new_buff);
 	}
+	free(buffer);
 	return (code);
 }
 

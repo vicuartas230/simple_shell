@@ -82,7 +82,7 @@ char *remove_new_line(char *buff)
 			new[i] = '\0';
 		i++;
 	}
-	free(buff);
+	/* free(buff); */
 	return (new);
 }
 /**

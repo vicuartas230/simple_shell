@@ -59,7 +59,7 @@ void _unsetenv(char **command)
 	char **ep = NULL, **sp = NULL;
 	int len = 0;
 
-	if (command[1] == NULL || command[1] == '\0' ||
+	if (command[1] == NULL || command[1] == NULL ||
 	_strchr(command[1], '=') != NULL)
 	{
 		write(STDOUT_FILENO, "not found\n", 11);

@@ -53,6 +53,7 @@ int non_interactive(void)
 
 	while (getline(&buffer, &chars, stdin) != EOF)
 	{
+		line_cont++;
 		if (buffer[0] == '\n')
 			continue;
 		new_buff = remove_new_line(buffer);
@@ -96,7 +97,7 @@ int check_command(char **command, int line_cont)
 			free_arr(command);
 		}
 	}
-	else if (!stat(command[0], &st))
+	else if (!stat(command[0], &st) && !_strncmp(command[0], "./", 2))
 	{
 		under_process(command);
 		free_arr(command);

@@ -16,6 +16,11 @@ int handler_dir(char **command, int line_cont)
 
 	copy = _getenv("PATH");
 	path = _strdup(copy);
+	if (!path)
+	{
+		code = print_err(command, line_cont), free_arr(command), free(path);
+		return (127);
+	}
 	words = count_w(path, ":");
 	paths = str_array(path, words, ":");
 	free(path);

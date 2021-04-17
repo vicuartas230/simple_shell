@@ -97,7 +97,7 @@ int check_command(char **command, int line_cont)
 			free_arr(command);
 		}
 	}
-	else if (!stat(command[0], &st) && !_strncmp(command[0], "./", 2))
+	else if (!stat(command[0], &st) && _strchr(command[0], '/'))
 	{
 		under_process(command);
 		free_arr(command);
